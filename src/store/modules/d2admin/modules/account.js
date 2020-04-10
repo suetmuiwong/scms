@@ -17,6 +17,7 @@ export default {
       username = '',
       password = ''
     } = {}) {
+      console.log('1111', username, password)
       return new Promise((resolve, reject) => {
         // 开始请求登录接口
         AccountLogin({
@@ -24,17 +25,142 @@ export default {
           password
         })
           .then(async res => {
+            console.log('======login', res)
             // 设置 cookie 一定要存 uuid 和 token 两个 cookie
             // 整个系统依赖这两个数据进行校验和存储
             // uuid 是用户身份唯一标识 用户注册的时候确定 并且不可改变 不可重复
             // token 代表用户当前登录状态 建议在网络请求中携带 token
             // 如有必要 token 需要定时更新，默认保存一天
-            util.cookies.set('uuid', res.uuid)
-            util.cookies.set('token', res.token)
+            // util.cookies.set('uuid', res.uuid)
+            util.cookies.set('uuid', 'admin-uuid')
+            util.cookies.set('token', res)
             // 设置 vuex 用户信息
             await dispatch('d2admin/user/set', {
-              name: res.name
+              name: username
             }, { root: true })
+
+            // { path: '/flow',
+            //   title: '流程管理',
+            //   alias: '流程管理',
+            //   icon: 'plug',
+            //   id: 2,
+            //   children: [
+            //     { path: '/flow/main', title: '流程设计', icon: 'asterisk' },
+            //     { path: '/flow/done', title: '已办', icon: 'clipboard' },
+            //     { path: '/flow/pending', title: '待阅', icon: 'clock-o' },
+            //     { path: '/flow/read', title: '已阅', icon: 'asterisk' }
+            //   ]
+            // },
+
+            // 请求菜单数据并存储
+            let menuData = [
+              { path: '/index',
+                title: '首页',
+                alias: '首页',
+                icon: 'home',
+                id: 1,
+                children: [
+                  { path: '/index/todo', title: '待办', icon: 'DB' },
+                  { path: '/index/done', title: '已办', icon: 'YB' },
+                  { path: '/index/pending', title: '待阅', icon: 'DY' },
+                  { path: '/index/read', title: '已阅', icon: 'YY' }
+                ]
+              },
+              { path: '/projects',
+                title: '项目管理',
+                alias: '项目管理',
+                icon: 'XMGL',
+                id: 3,
+                children: [
+                  { path: '/projects/list', title: '我的项目', icon: 'WDXM' },
+                ]
+              },
+              { path: '/goods',
+                title: '货物管理',
+                alias: '货物管理',
+                icon: 'HWGL',
+                id: 7,
+                children: [
+                  { path: '/goods/list', title: '我的货物', icon: 'WDHW' }
+                ]
+              },{ path: '/prices',
+                title: '询价管理',
+                alias: '询价管理',
+                icon: 'XJGL',
+                id: 4,
+                children: [
+                  { path: '/prices/list', title: '我的询价记录', icon: 'WDXJJJ' }
+                ]
+              },
+              { path: '/supplier',
+                title: '供应商管理',
+                alias: '供应商管理',
+                icon: 'GYSGL',
+                id: 8,
+                children: [
+                  { path: '/supplier/list', title: '我的供应商', icon: 'WDGYS' },
+                  { path: '/supplier/info', title: '我的信息', icon: 'WDXX' },
+                  { path: '/supplier/update', title: '我的变更', icon: 'WDBG' },
+                  { path: '/supplier/reset-pwd', title: '密码重置', icon: 'MMCZ' }
+                ]
+              },
+              { path: '/agent',
+                title: '代理商管理',
+                alias: '代理商管理',
+                icon: 'DLSGL',
+                id: 9,
+                children: [
+                  { path: '/agent/list', title: '我的代理商', icon: 'WDDLS' }
+                ]
+              },
+              { path: '/purchaseResults',
+                title: '采购结果通知书',
+                alias: '采购结果通知书',
+                icon: 'CGJGTZS',
+                id: 10,
+                children: [
+                  { path: '/purchaseResults/list', title: '我的采购结果通知书', icon: 'WDCGJJTZS' }
+                ]
+              },
+              { path: '/bids',
+                title: '成交通知书',
+                alias: '成交通知书',
+                icon: 'CJTZS',
+                id: 5,
+                children: [
+                  { path: '/bids/list', title: '我的成交通知书', icon: 'WDCJTZS' }
+                ]
+              },
+              { path: '/contract',
+                title: '合同管理',
+                alias: '合同管理',
+                icon: 'HTGL',
+                id: 6,
+                children: [
+                  { path: '/contract/list', title: '我的合同', icon: 'WDHT' }
+                ]
+              },
+              { path: '/system',
+                title: '系统管理',
+                alias: '系统管理',
+                icon: 'XTGL',
+                id: 12,
+                children: [
+                  { path: '/system/user', title: '用户管理', icon: 'YHGL' },
+                  { path: '/system/role', title: '角色管理', icon: 'JSGL' },
+                ] },
+              { path: '/template',
+                title: '模板管理',
+                alias: '模板管理',
+                icon: 'MBGL',
+                id: 13,
+                children: [
+                  { path: '/template/purchase', title: '采购结果通知书模板', icon: 'CGJJTZSMB' },
+                  { path: '/template/bids', title: '成交通知书模板', icon: 'CHTZSMB' },
+                  { path: '/template/contract', title: '合同模板', icon: 'HTMB' }
+                ]
+              }]
+            await dispatch('d2admin/menu/menuDataSet', menuData, { root: true })
             // 用户登录后从持久化数据加载一系列的设置
             await dispatch('load')
             // 结束
@@ -100,6 +226,10 @@ export default {
         await dispatch('d2admin/transition/load', null, { root: true })
         // DB -> store 持久化数据加载上次退出时的多页列表
         await dispatch('d2admin/page/openedLoad', null, { root: true })
+        // DB -> store 持久化数据加载存储的菜单值
+        await dispatch('d2admin/menu/menuDataLoad', null, { root: true })
+        // DB -> store 持久化数据加载存储的header当前选中模块index
+        await dispatch('d2admin/menu/headerActivePathLoad', null, { root: true })
         // DB -> store 持久化数据加载侧边栏折叠状态
         await dispatch('d2admin/menu/asideCollapseLoad', null, { root: true })
         // DB -> store 持久化数据加载全局尺寸

@@ -38,7 +38,28 @@ module.exports = {
   lintOnSave: true,
   devServer: {
     publicPath, // 和 publicPath 保持一致
-    disableHostCheck: process.env.NODE_ENV === 'development' // 关闭 host check，方便使用 ngrok 之类的内网转发工具
+    // disableHostCheck: process.env.NODE_ENV === 'development', // 关闭 host check，方便使用 ngrok 之类的内网转发工具
+    // contentBase:'ltemr',
+    open: true, // 浏览器自动打开页面
+    host: '0.0.0.0', // 如果是真机测试，就使用这个IP
+    // host:'localhost',
+    // host:'http://localhost:8081',
+    port: 8081,
+    https: false,
+    hotOnly: false, // 热更新（webpack已实现了，这里false即可）
+    proxy: {
+      // 配置跨域
+      '/scms': {
+        target: 'http://47.105.181.143:8780',
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/scms': '/api'
+        }
+      }
+    }
+
+    // publicPath // 和 publicPath 保持一致
   },
   css: {
     loaderOptions: {
@@ -104,7 +125,7 @@ module.exports = {
         changeSelector: forElementUI.changeSelector
       }])
     config
-      // 开发环境 sourcemap 不包含列信息
+    // 开发环境 sourcemap 不包含列信息
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       )
@@ -151,7 +172,7 @@ module.exports = {
       const multiEntry = keys(pages || {})
       const entrys = multiEntry.length ? multiEntry : ['app']
       each(entrys, entry => {
-        config.entry(entry).add('@/mock').end()
+        // config.entry(entry).add('@/mock').end()
       })
     }
     // 分析工具

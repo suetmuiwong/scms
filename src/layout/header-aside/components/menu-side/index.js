@@ -11,7 +11,7 @@ export default {
   render (createElement) {
     return createElement('div', { attrs: { class: 'd2-layout-header-aside-menu-side' } }, [
       createElement('el-menu', {
-        props: { collapse: this.asideCollapse, uniqueOpened: true, defaultActive: this.active },
+        props: { collapse: this.asideCollapse, defaultOpeneds: [this.headerActivePath], uniqueOpened: true, defaultActive: this.active },
         ref: 'menu',
         on: { select: this.handleMenuSelect }
       }, this.aside.map(menu => (menu.children === undefined ? elMenuItem : elSubmenu).call(this, createElement, menu))),
@@ -33,7 +33,8 @@ export default {
   computed: {
     ...mapState('d2admin/menu', [
       'aside',
-      'asideCollapse'
+      'asideCollapse',
+      'headerActivePath'
     ])
   },
   watch: {
@@ -42,18 +43,25 @@ export default {
       this.scrollDestroy()
       setTimeout(() => {
         this.scrollInit()
-      }, 500)
+      }, 300)
     },
     // 监听路由 控制侧边栏激活状态
     '$route.fullPath': {
-      handler (value) {
-        this.active = value
+      handler (val) {
+        this.active = val
+        this.$nextTick(() => { // 重要选中当前的左侧菜单栏
+          if (this.aside.length > 0 && this.$refs.menu) {
+            this.$refs.menu.activeIndex = val
+          }
+        })
       },
       immediate: true
     }
+
   },
   mounted () {
     this.scrollInit()
+    console.log(5555, this.$route.path)
   },
   beforeDestroy () {
     this.scrollDestroy()

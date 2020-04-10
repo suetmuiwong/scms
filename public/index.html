@@ -44,11 +44,11 @@
             alt="loading">
         </div>
         <div class="d2-home__footer">
-          <a
-            href="https://github.com/d2-projects/d2-admin"
-            target="_blank">
-            https://github.com/d2-projects/d2-admin
-          </a>
+          <!--<a-->
+            <!--href="https://github.com/d2-projects/d2-admin"-->
+            <!--target="_blank">-->
+            <!--https://github.com/d2-projects/d2-admin-->
+          <!--</a>-->
         </div>
       </div>
     </div>
@@ -56,5 +56,6 @@
     <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
     <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
     <% } %>
+    <script type="text/javascript" src="./static/WebOffice.js"></script>
   </body>
 </html>

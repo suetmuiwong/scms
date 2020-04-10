@@ -1,13 +1,17 @@
-import playground from './modules/playground'
-import frame from './modules/frame'
-import d2Crud from './modules/d2-crud'
-import plugins from './modules/plugins'
-import charts from './modules/charts'
-import components from './modules/components'
-import element from './modules/element'
-import business from './modules/business'
-
 import layoutHeaderAside from '@/layout/header-aside'
+import flow from './modules/flow'
+import news from './modules/news'
+import plans from './modules/plans'
+import prices from './modules/prices'
+import bids from './modules/bids'
+import template from './modules/template'
+import system from './modules/system'
+import contract from './modules/contract'
+import supplier from './modules/supplier'
+import agent from './modules/agent'
+import goods from './modules/goods'
+import projects from './modules/projects'
+import purchaseResults from './modules/purchaseResults'
 
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
@@ -57,14 +61,19 @@ const frameIn = [
       }
     ]
   },
-  playground,
-  frame,
-  d2Crud,
-  plugins,
-  charts,
-  components,
-  element,
-  business
+  flow,
+  news,
+  plans,
+  prices,
+  bids,
+  template,
+  system,
+  contract,
+  supplier,
+  agent,
+  goods,
+  projects,
+  purchaseResults
 ]
 
 /**
@@ -76,6 +85,11 @@ const frameOut = [
     path: '/login',
     name: 'login',
     component: _import('system/login')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: _import('system/register')
   }
 ]
 

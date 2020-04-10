@@ -185,3 +185,33 @@ At the same time, you can report your project to us. We will place the excellent
 ## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fd2-projects%2Fd2-admin.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fd2-projects%2Fd2-admin?ref=badge_large)
+
+
+一、系统角色
+ 厂家
+ 代理商
+ 招标中心经办人
+ 采购人
+ 采购领导
+
+
+二、系统模块
+
+询价管理
+   厂家
+        1、询价记录列表
+        查询     主题、编号 清空查询
+        列表功能  查看(是啥) =>查看询价？、查看关联方案(是啥)、导出(导出当前页数据还是所有数据)
+        列表字段  项目主题 项目编号 货物名称 询价人 询价人单位 被询价人（供应商）询价时间 备注(列表)
+        2、查看询价
+        项目编号 项目主题 单位采购人信息  厂家信息
+   招标中心经办人
+        1、询价记录列表
+        查询     主题、编号 清空查询
+        列表功能  查看(是啥) =>查看询价？、导出(导出当前页数据还是所有数据)
+        列表字段  项目主题 项目编号 货物名称 询价人 询价人单位 被询价人（供应商）询价时间 备注（列表）
+    采购人
+        与招标中心经办人功能一致
+中标通知书
+    厂家
+        1、中标通知书列表

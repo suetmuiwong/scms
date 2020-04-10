@@ -17,29 +17,29 @@
         </el-tabs>
       </div>
     </div>
-    <div class="d2-multiple-page-control-btn" flex-box="0">
-      <el-dropdown size="default" split-button @click="closeAll" @command="command => handleControlItemClick(command)">
-        <d2-icon name="times-circle"/>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="left">
-            <d2-icon name="arrow-left" class="d2-mr-10"/>
-            关闭左侧
-          </el-dropdown-item>
-          <el-dropdown-item command="right">
-            <d2-icon name="arrow-right" class="d2-mr-10"/>
-            关闭右侧
-          </el-dropdown-item>
-          <el-dropdown-item command="other">
-            <d2-icon name="times" class="d2-mr-10"/>
-            关闭其它
-          </el-dropdown-item>
-          <el-dropdown-item command="all">
-            <d2-icon name="times-circle" class="d2-mr-10"/>
-            全部关闭
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+    <!--<div class="d2-multiple-page-control-btn" flex-box="0">-->
+      <!--<el-dropdown size="default" split-button @click="closeAll" @command="command => handleControlItemClick(command)">-->
+        <!--<d2-icon name="times-circle"/>-->
+        <!--<el-dropdown-menu slot="dropdown">-->
+          <!--<el-dropdown-item command="left">-->
+            <!--<d2-icon name="arrow-left" class="d2-mr-10"/>-->
+            <!--关闭左侧-->
+          <!--</el-dropdown-item>-->
+          <!--<el-dropdown-item command="right">-->
+            <!--<d2-icon name="arrow-right" class="d2-mr-10"/>-->
+            <!--关闭右侧-->
+          <!--</el-dropdown-item>-->
+          <!--<el-dropdown-item command="other">-->
+            <!--<d2-icon name="times" class="d2-mr-10"/>-->
+            <!--关闭其它-->
+          <!--</el-dropdown-item>-->
+          <!--<el-dropdown-item command="all">-->
+            <!--<d2-icon name="times-circle" class="d2-mr-10"/>-->
+            <!--全部关闭-->
+          <!--</el-dropdown-item>-->
+        <!--</el-dropdown-menu>-->
+      <!--</el-dropdown>-->
+    <!--</div>-->
   </div>
 </template>
 

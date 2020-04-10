@@ -27,7 +27,9 @@
   .d2-layout-header-aside-content {
     @extend %full;
     .d2-theme-header {
-      height: 60px;
+      //background: #4b8bdd;
+      background: #FFFFFF;
+      height: 50px;
       .d2-theme-header-menu {
         overflow: hidden;
         &.is-scrollable {
@@ -73,7 +75,9 @@
       }
     }
     .d2-theme-container {
+      background: #4b8bdd30;
       .d2-theme-container-aside {
+        background: #022148;
         transition: width .3s;
         position: relative;
         .d2-layout-header-aside-menu-side {
@@ -82,7 +86,9 @@
         }
       }
       .d2-theme-container-main {
-        padding: 0px;
+        //padding: 0px;
+        //margin: 10px;
+       // background: #fff;
         position: relative;
         overflow: hidden;
         .d2-theme-container-main-layer {
@@ -119,6 +125,11 @@
         transition: width .3s;
         float: left;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #3B9DF8;
+        color: #fff;
         img {
           height: 60px;
         }
@@ -126,8 +137,8 @@
       // 折叠侧边栏切换按钮
       .toggle-aside-btn {
         float: left;
-        height: 60px;
-        width: 60px;
+        height: 50px;
+        width: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -135,6 +146,7 @@
         i {
           font-size: 20px;
           margin-top: 4px;
+          color: rgb(184, 211, 255);
         }
       }
       // [菜单] 顶栏
@@ -163,7 +175,7 @@
       // 顶栏右侧的按钮
       .d2-header-right {
         float: right;
-        height: 60px;
+        height: 50px;
         display: flex;
         align-items: center;
         .btn-text {
@@ -237,10 +249,12 @@
       .d2-theme-container-main {
         // 主体部分分为多页面控制器 和主体
         .d2-theme-container-main-header {
-          height: 41px;
+         // height: 45px;
+          background-color: #fff;
+          border-top: 1px solid #E5E5E5;
           // 多页面控制器
           .d2-multiple-page-control-group {
-            padding-right: 20px;
+           // padding-right: 20px;
             .d2-multiple-page-control-content {
               overflow: auto;
               position: relative;
@@ -273,6 +287,7 @@
         }
         // 主体
         .d2-theme-container-main-body {
+          background-color: #F3F3F5;
           // 布局组件
           .container-component {
             @extend %full;
@@ -280,10 +295,10 @@
             // 填充式布局组件
             .d2-container-full {
               position: absolute;
-              top: 0px;
-              right: 20px;
-              bottom: 0px;
-              left: 0px;
+              top: 15px;
+              right: 15px;
+              bottom: 15px;
+              left: 15px;
               display: flex;
               flex-direction: column;
               overflow: hidden;
@@ -293,8 +308,9 @@
               .d2-container-full__body {
                 flex-grow: 1;
                 height: 100%;
-                padding: 20px 20px;
-                overflow: auto;
+               // padding: 20px 20px;
+               // overflow: auto;
+                overflow: hidden;
                 position: relative;
               }
               .d2-container-full__footer {
@@ -447,4 +463,6 @@
       }
     }
   }
+
+
 }

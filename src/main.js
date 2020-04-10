@@ -1,5 +1,6 @@
 // Vue
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import i18n from './i18n'
 import App from './App'
 // 核心插件
@@ -11,10 +12,11 @@ import store from '@/store/index'
 import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
+import * as global_ from './libs/vue.global'
 
 // 核心插件
 Vue.use(d2Admin)
-
+Vue.prototype.GLOBAL = global_
 new Vue({
   router,
   store,
@@ -24,9 +26,15 @@ new Vue({
     // 处理路由 得到每一级的路由设置
     this.$store.commit('d2admin/page/init', frameInRoutes)
     // 设置顶栏菜单
-    this.$store.commit('d2admin/menu/headerSet', menuHeader)
+    // this.$store.commit('d2admin/menu/headerSet', menuHeader)
     // 初始化菜单搜索功能
-    this.$store.commit('d2admin/search/init', menuHeader)
+    // this.$store.commit('d2admin/search/init', menuHeader)
+  },
+  computed: {
+    ...mapState('d2admin/menu', [
+      'menuData',
+      'currentMenu'
+    ])
   },
   mounted () {
     // 展示系统信息
@@ -43,8 +51,16 @@ new Vue({
     '$route.matched': {
       handler (matched) {
         if (matched.length > 0) {
-          const _side = menuAside.filter(menu => menu.path === matched[0].path)
-          this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
+          if (matched[0].path === '') { // 首页处理
+            this.$store.dispatch('d2admin/menu/headerActivePathSet', this.menuData[0].path)
+            this.$store.commit('d2admin/menu/asideSet', [this.menuData[0]])
+          } else {
+            const _side = this.menuData.filter(menu => menu.path === matched[0].path)
+            this.$store.dispatch('d2admin/menu/headerActivePathSet', _side[0].path)
+            this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side : [])
+          }
+
+          // this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
         }
       },
       immediate: true
